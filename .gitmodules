@@ -2,3 +2,6 @@
 	path = thirdparty/rexglue-sdk
 	url = https://github.com/rapidsamphire/rexglue-sdk.git
 	branch = ac6recomp-fixes
+[submodule "thirdparty/rexglue-sdk/thirdparty/moltenvk"]
+	path = thirdparty/rexglue-sdk/thirdparty/moltenvk
+	url = https://github.com/KhronosGroup/MoltenVK.git
