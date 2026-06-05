@@ -28,7 +28,7 @@ WORKDIR /app
 COPY . .
 
 # Initialize submodules (required for rexglue-sdk and moltenvk)
-RUN git submodule update --init --recursive 2>&1 || true
+RUN git submodule update --init --recursive
 
 # Build
 RUN cmake -B build \
