@@ -4,6 +4,10 @@ set -e
 IMAGE_NAME="ac6recomp-linux-build"
 CONTAINER_NAME="ac6recomp-build"
 
+# Initialize submodules (required before Docker build)
+echo "Initializing submodules..."
+git submodule update --init --recursive
+
 # Build Docker image
 echo "Building Docker image..."
 docker build -t "$IMAGE_NAME" .

@@ -24,11 +24,8 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy source files
+# Copy source files (submodules must be populated on the host first)
 COPY . .
-
-# Initialize submodules (required for rexglue-sdk and moltenvk)
-RUN git submodule update --init --recursive
 
 # Build
 RUN cmake -B build \
