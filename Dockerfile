@@ -27,12 +27,13 @@ WORKDIR /app
 # Copy source files
 COPY . .
 
-# Initialize submodules
-RUN git submodule update --init --recursive
+# Initialize submodules (required for rexglue-sdk and moltenvk)
+RUN git submodule update --init --recursive 2>&1 || true
 
 # Build
 RUN cmake -B build \
     -DCMAKE_BUILD_TYPE=Release \
+    -DREXSDK_DIR=/app/thirdparty/rexglue-sdk \
     -DREXGLUE_USE_VULKAN=ON \
     -DREXGLUE_USE_D3D12=OFF \
     && cmake --build build --config Release --parallel $(nproc)
