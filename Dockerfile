@@ -4,6 +4,7 @@ FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y \
     cmake \
     build-essential \
+    clang \
     libvulkan-dev \
     libxcb1-dev \
     libx11-xcb-dev \
@@ -30,6 +31,8 @@ COPY . .
 # Build
 RUN cmake -B build \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++ \
     -DREXSDK_DIR=/app/thirdparty/rexglue-sdk \
     -DREXGLUE_USE_VULKAN=ON \
     -DREXGLUE_USE_D3D12=OFF \
