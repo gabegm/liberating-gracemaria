@@ -87,8 +87,3 @@ target_link_libraries(rexcore
         disruptorplus
         utf8cpp
 )
-
-# SSSE3 required for _mm_shuffle_epi8 in memory.cpp on x86_64
-if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64|AMD64")
-    target_compile_options(rexcore PRIVATE $<$<CXX_COMPILER_ID:GNU,Clang>:-mssse3>)
-endif()
