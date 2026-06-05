@@ -27,6 +27,9 @@ WORKDIR /app
 # Copy source files
 COPY . .
 
+# Initialize submodules
+RUN git submodule update --init --recursive
+
 # Build
 RUN cmake -B build \
     -DCMAKE_BUILD_TYPE=Release \
