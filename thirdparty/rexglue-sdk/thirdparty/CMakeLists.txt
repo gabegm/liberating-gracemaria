@@ -41,6 +41,11 @@ if(REXGLUE_USE_VULKAN)
     )
 endif()
 
+# MoltenVK - Vulkan-to-Metal translation layer (macOS only)
+if(APPLE AND REXGLUE_USE_VULKAN)
+    list(APPEND REQUIRED_SUBMODULES moltenvk)
+endif()
+
 
 if(REXGLUE_BUILD_TESTS)
     list(APPEND REQUIRED_SUBMODULES catch2)
@@ -203,6 +208,15 @@ if(REXGLUE_USE_VULKAN)
     target_link_libraries(volk PUBLIC Vulkan::Headers)
     target_link_libraries(volk_headers INTERFACE Vulkan::Headers)
     target_compile_options(volk PRIVATE -w)
+
+    # MoltenVK - Vulkan-to-Metal translation layer (macOS only)
+    if(APPLE)
+        set(MOLTENVK_INSTALL_FRAMEWORK ON CACHE BOOL "" FORCE)
+        set(MOLTENVK_INCLUDE_DEMO OFF CACHE BOOL "" FORCE)
+        set(MOLTENVK_BUILD_DEMO OFF CACHE BOOL "" FORCE)
+        set(MOLTENVK_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+        add_subdirectory(moltenvk)
+    endif()
 endif()
 
 #=============================================================================

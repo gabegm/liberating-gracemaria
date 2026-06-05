@@ -137,6 +137,11 @@ if(REXGLUE_USE_VULKAN)
         OGLCompiler
     )
     target_compile_definitions(rexgraphics PUBLIC REX_HAS_VULKAN=1)
+
+    # Link MoltenVK on macOS
+    if(APPLE)
+        target_link_libraries(rexgraphics PRIVATE MoltenVK)
+    endif()
 endif()
 
 if(REXGLUE_USE_D3D12)

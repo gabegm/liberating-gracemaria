@@ -42,6 +42,9 @@
 #if REX_PLATFORM_WIN32
 #include <rex/ui/surface_win.h>
 #endif
+#if REX_PLATFORM_MACOS
+#include <rex/ui/surface_macos.h>
+#endif
 
 REXCVAR_DEFINE_BOOL(present_render_pass_clear, true, "UI/Presenter",
                     "Clear render pass during presentation");
@@ -821,6 +824,18 @@ VulkanPresenter::ConnectOrReconnectPaintingToSurfaceFromUIThread(Surface& new_su
         surface_create_info.hinstance = win32_hwnd_surface.hinstance();
         surface_create_info.hwnd = win32_hwnd_surface.hwnd();
         vulkan_surface_create_result = ifn.vkCreateWin32SurfaceKHR(
+            instance, &surface_create_info, nullptr, &paint_context_.vulkan_surface);
+      } break;
+#endif
+#if REX_PLATFORM_MACOS
+      case Surface::kTypeIndex_MacOSNSView: {
+        auto& macos_ns_view_surface = static_cast<const MacOSNSViewSurface&>(new_surface);
+        VkMetalSurfaceCreateInfoEXT surface_create_info;
+        surface_create_info.sType = VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT;
+        surface_create_info.pNext = nullptr;
+        surface_create_info.flags = 0;
+        surface_create_info.view = macos_ns_view_surface.ns_view();
+        vulkan_surface_create_result = ifn.vkCreateMetalSurfaceEXT(
             instance, &surface_create_info, nullptr, &paint_context_.vulkan_surface);
       } break;
 #endif

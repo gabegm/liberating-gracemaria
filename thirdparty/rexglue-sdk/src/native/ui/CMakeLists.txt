@@ -56,6 +56,11 @@ if(WIN32)
         window_win.cpp
         windowed_app_context_win.cpp
     )
+elseif(APPLE)
+    set(REXUI_PLATFORM_SOURCES
+        surface_macos.cpp
+        window_macos.cpp
+    )
 else()
     set(REXUI_PLATFORM_SOURCES
         surface_gnulinux.cpp
@@ -128,6 +133,14 @@ if(WIN32)
     target_link_libraries(rexui PUBLIC
         dwmapi
         Shcore
+    )
+elseif(APPLE)
+    # Link macOS frameworks
+    find_library(APPSKIT_FRAMEWORK AppKit)
+    find_library(COCOA_FRAMEWORK Cocoa)
+    target_link_libraries(rexui PUBLIC
+        ${APPSKIT_FRAMEWORK}
+        ${COCOA_FRAMEWORK}
     )
 else()
     find_package(PkgConfig REQUIRED)
