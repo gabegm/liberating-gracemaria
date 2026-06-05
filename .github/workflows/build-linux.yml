@@ -38,16 +38,16 @@ jobs:
 
       - name: Generate FFmpeg avconfig.h
         run: |
-          cat > thirdparty/rexglue-sdk/thirdparty/FFmpeg/libavutil/avconfig.h << 'EOF'
-#ifndef AVUTIL_AVCONFIG_H
-#define AVUTIL_AVCONFIG_H
-#define HAVE_THREADS 1
-#define HAVE_PTHREADS 1
-#define HAVE_PRAGMA_DEPRECATED 1
-#define HAVE_FAST_CLZ 1
-#define HAVE_FAST_UNALIGNED 1
-#define AV_HAVE_BIGENDIAN 0
-#endif
+          cat > thirdparty/rexglue-sdk/thirdparty/FFmpeg/libavutil/avconfig.h <<- 'EOF'
+          #ifndef AVUTIL_AVCONFIG_H
+          #define AVUTIL_AVCONFIG_H
+          #define HAVE_THREADS 1
+          #define HAVE_PTHREADS 1
+          #define HAVE_PRAGMA_DEPRECATED 1
+          #define HAVE_FAST_CLZ 1
+          #define HAVE_FAST_UNALIGNED 1
+          #define AV_HAVE_BIGENDIAN 0
+          #endif
           EOF
 
       - name: Configure CMake
