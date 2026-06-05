@@ -48,7 +48,7 @@ jobs:
 #define HAVE_FAST_UNALIGNED 1
 #define AV_HAVE_BIGENDIAN 0
 #endif
-EOF
+          EOF
 
       - name: Configure CMake
         run: |
