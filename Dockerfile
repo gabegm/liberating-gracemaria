@@ -28,6 +28,19 @@ WORKDIR /app
 # Copy source files (submodules must be populated on the host first)
 COPY . .
 
+# Generate FFmpeg avconfig.h (required by FFmpeg build)
+RUN cat > /app/thirdparty/rexglue-sdk/thirdparty/FFmpeg/libavutil/avconfig.h << 'EOF'
+#ifndef AVUTIL_AVCONFIG_H
+#define AVUTIL_AVCONFIG_H
+#define HAVE_THREADS 1
+#define HAVE_PTHREADS 1
+#define HAVE_PRAGMA_DEPRECATED 1
+#define HAVE_FAST_CLZ 1
+#define HAVE_FAST_UNALIGNED 1
+#define AV_HAVE_BIGENDIAN 0
+#endif
+EOF
+
 # Build
 RUN cmake -B build \
     -DCMAKE_BUILD_TYPE=Release \
