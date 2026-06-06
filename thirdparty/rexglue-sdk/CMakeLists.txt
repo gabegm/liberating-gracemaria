@@ -106,7 +106,6 @@ add_compile_options(
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64|AMD64")
     add_compile_options($<$<CXX_COMPILER_ID:GNU,Clang>:-mssse3>)
 endif()
-)
 
 # Platform detection (supports AMD64 and ARM64)
 if(WIN32)
