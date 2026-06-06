@@ -34,10 +34,12 @@ set(AC6RECOMP_SOURCES
     src/ac6_native_renderer/render_graph.cpp
 )
 
-if(WIN32)
-    add_executable(ac6recomp WIN32 ${AC6RECOMP_SOURCES})
-else()
-    add_executable(ac6recomp ${AC6RECOMP_SOURCES})
+# Only build main executable if XEX asset is present (XEX is gitignored)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/default.xex")
+    if(WIN32)
+        add_executable(ac6recomp WIN32 ${AC6RECOMP_SOURCES})
+    else()
+        add_executable(ac6recomp ${AC6RECOMP_SOURCES})
+    endif()
+    rexglue_setup_target(ac6recomp)
 endif()
-
-rexglue_setup_target(ac6recomp)

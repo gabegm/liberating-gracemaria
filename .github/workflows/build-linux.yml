@@ -73,11 +73,13 @@ jobs:
             -DREXGLUE_USE_VULKAN=ON \
             -DREXGLUE_USE_D3D12=OFF
 
-      - name: Generate codegen headers
+      - name: Generate codegen headers (if XEX present)
+        if: hashFiles('assets/default.xex') != ''
         run: |
           cmake --build build --config Release --target ac6recomp_codegen --parallel $(nproc)
 
-      - name: Re-configure after codegen
+      - name: Re-configure after codegen (if XEX present)
+        if: hashFiles('assets/default.xex') != ''
         run: |
           cmake -B build \
             -DCMAKE_BUILD_TYPE=Release \
