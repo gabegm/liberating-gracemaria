@@ -97,11 +97,10 @@ add_compile_options(
     -ffp-model=strict
     $<$<CONFIG:DEBUG>:-g>
     $<$<CONFIG:DEBUG>:-O0>
-    $<$<AND:$<CXX_COMPILER_ID:GNU,Clang>,$<CMAKE_SYSTEM_PROCESSOR:MATCHES,x86_64|amd64|AMD64>>:-mssse3>
-)
     $<$<CONFIG:RELEASE>:-O3>
     $<$<CONFIG:RELEASE>:-DNDEBUG>
     -fno-char8_t
+    $<$<AND:$<CXX_COMPILER_ID:GNU,Clang>,$<CMAKE_SYSTEM_PROCESSOR:MATCHES,x86_64|amd64|AMD64>>:-mssse3>
 )
 
 # Platform detection (supports AMD64 and ARM64)
