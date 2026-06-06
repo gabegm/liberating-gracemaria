@@ -23,4 +23,11 @@ docker cp "$CONTAINER_NAME:/app/build" ./build
 # Clean up container
 docker rm "$CONTAINER_NAME"
 
+# Copy generated headers if they exist (from codegen step)
+if [ -d assets ]; then
+    echo "Copying generated headers..."
+    mkdir -p generated
+    docker cp "$CONTAINER_NAME:/app/generated" ./generated 2>/dev/null || true
+fi
+
 echo "Build complete! Artifacts in ./build"
