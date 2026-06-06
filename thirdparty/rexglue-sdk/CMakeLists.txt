@@ -100,7 +100,7 @@ add_compile_options(
     $<$<CONFIG:RELEASE>:-O3>
     $<$<CONFIG:RELEASE>:-DNDEBUG>
     -fno-char8_t
-    $<$<AND:$<CXX_COMPILER_ID:GNU,Clang>,$<CMAKE_SYSTEM_PROCESSOR:MATCHES,x86_64|amd64|AMD64>>:-mssse3>
+    $<$<AND:$<CXX_COMPILER_ID:GNU,Clang>,$<OR:$<CMAKE_SYSTEM_PROCESSOR:STREQUAL,x86_64>,$<CMAKE_SYSTEM_PROCESSOR:STREQUAL,amd64>,$<CMAKE_SYSTEM_PROCESSOR:STREQUAL,AMD64>>>:-mssse3>
 )
 
 # Platform detection (supports AMD64 and ARM64)
