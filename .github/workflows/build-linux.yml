@@ -73,6 +73,20 @@ jobs:
             -DREXGLUE_USE_VULKAN=ON \
             -DREXGLUE_USE_D3D12=OFF
 
+      - name: Generate codegen headers
+        run: |
+          cmake --build build --config Release --target ac6recomp_codegen --parallel $(nproc)
+
+      - name: Re-configure after codegen
+        run: |
+          cmake -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_COMPILER=clang-19 \
+            -DCMAKE_CXX_COMPILER=clang++-19 \
+            -DREXSDK_DIR=thirdparty/rexglue-sdk \
+            -DREXGLUE_USE_VULKAN=ON \
+            -DREXGLUE_USE_D3D12=OFF
+
       - name: Build
         run: |
           cmake --build build --config Release --parallel $(nproc)
